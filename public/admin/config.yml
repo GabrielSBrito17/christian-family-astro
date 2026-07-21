@@ -1,0 +1,22 @@
+backend:
+  name: github
+  repo: GabrielSBrito17/withastro-astro-svrou2km # Altere para seu usuário/repo no GitHub
+  branch: main
+  base_url: https://decap-cms-oauth.vercel.app # Proxy gratuito para autenticação no GitHub
+
+media_folder: "public/images/uploads" # Pasta onde imagens enviadas serão salvas
+public_folder: "/images/uploads"
+
+collections:
+  - name: "eventos"
+    label: "Eventos e Avisos"
+    folder: "src/content/eventos" # Onde os arquivos Markdown serão criados
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Título", name: "titulo", widget: "string" }
+      - { label: "Data do Evento", name: "data", widget: "datetime" }
+      - { label: "Horário", name: "horario", widget: "string", default: "18:00" }
+      - { label: "Descrição Curta", name: "descricao", widget: "text" }
+      - { label: "Imagem de Capa", name: "imagem", widget: "image", required: false }
+      - { label: "Conteúdo Detalhado", name: "body", widget: "markdown" }
