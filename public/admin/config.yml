@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: GabrielSBrito17/withastro-astro-svrou2km # Altere para seu usuário/repo no GitHub
+  repo: GabrielSBrito17/christian-family-astro # Altere para seu usuário/repo no GitHub
   branch: main
   base_url: https://decap-cms-oauth.vercel.app # Proxy gratuito para autenticação no GitHub
 
