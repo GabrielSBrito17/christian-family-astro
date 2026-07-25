@@ -1,152 +1,183 @@
 ---
-	// Configuração do Astro (Frontmatter) - Pode adicionar lógica JavaScript aqui no futuro
-	const churchName = "Igreja Christian Family";
+import Layout from '../layouts/Layout.astro';
 
-	const cultos = [
-		  { nome: "Culto de Celebração", dia: "Domingo", horario: "10:00 e 18h00", link: "#" },
-				{ nome: "Culto o Altar Responde", dia: "Sexta-feira", horario: "20h00", link: "#" },
-					{ nome: "Reunião de Oração", dia: "Terça-feira", horario: "20h00", link: "#" },
-						{ nome: "Encontro de Jovens", dia: "Sábado", horario: "19h30", link: "#" },
-			];
+const churchName = "Igreja Christian Family";
+import logoUrl from "../assets/images/logo2.png";
 
-				const eventos = [
-				  {
-					    titulo: "Conferência Global 2026",
-							    data: "15 a 17 de Outubro",
-									    local: "Auditório Principal",
-											    imagem: "https://unsplash.com",
-													    tag: "Conferência",
-															    descricao: "Três dias de imersão, adoração e palavra com convidados especiais. Garanta já a sua agenda."
-																	  },
-																		  {
-																			    titulo: "Retiro de Jovens: Conectados",
-																					    data: "20 a 22 de Novembro",
-																							    local: "Acampamento Quinta do Sol",
-																									    imagem: "https://unsplash.com",
-																											    tag: "Retiro",
-																													    descricao: "O nosso retiro anual de jovens. Um tempo focado em comunhão, dinâmicas e renovo espiritual."
-																															  }
-																																];
-																																---
+const cultos = [
+  { nome: "Culto de Celebração", dia: "Domingo", horario: "10:00 e 18h00", descricao: "Louvor, comunhão e palavra transformadora para a família." },
+  { nome: "Culto o Altar Responde", dia: "Sexta-feira", horario: "20h00", descricao: "Noite de oração, busca pelo Espírito Santo e clamor." },
+  { nome: "Reunião de Oração", dia: "Terça-feira", horario: "20h00", descricao: "Intercessão pelas famílias, igreja e pedidos de oração." },
+  { nome: "Encontro de Jovens", dia: "Sábado", horario: "19h30", descricao: "Comunhão, louvor jovem e mensagens práticas." },
+];
 
-																																<html lang="pt-PT">
-																																  <head>
-																																	    <meta charset="utf-8" />
-																																			    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-																																					    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-																																							    <title>{churchName} | Bem-vindo</title>
-																																									  </head>
-																																										  <body class="bg-gray-50 text-gray-900 font-sans antialiased">
+const eventos = [
+  {
+    titulo: "Conferência Global 2026",
+    data: "15 a 17 de Outubro",
+    local: "Auditório Principal",
+    imagem: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80",
+    tag: "Conferência",
+    descricao: "Três dias de imersão, adoração e palavra com convidados especiais. Garanta sua vaga."
+  },
+  {
+    titulo: "Retiro de Jovens: Conectados",
+    data: "20 a 22 de Novembro",
+    local: "Acampamento Quinta do Sol",
+    imagem: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=800&q=80",
+    tag: "Retiro",
+    descricao: "O nosso retiro anual de jovens. Tempo focado em comunhão, dinâmicas e crescimento espiritual."
+  }
+];
+---
 
-																																											    <!-- 1. CABEÇALHO / NAVEGAÇÃO -->
-																																													    <header class="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100">
-																																															      <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-																																																		        <a href="#" class="text-xl font-black tracking-tight text-blue-600">{churchName}</a>
-																																																						        <nav class="hidden md:flex space-x-8 text-sm font-medium text-gray-600">
-																																																										          <a href="#" class="hover:text-blue-600 transition">Início</a>
-																																																															          <a href="#agenda" class="hover:text-blue-600 transition">Cultos</a>
-																																																																				          <a href="#eventos" class="hover:text-blue-600 transition">Eventos</a>
-																																																																									        </nav>
-																																																																													        <a href="#eventos" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2 rounded-full transition shadow-sm">
-																																																																																	          Inscrições Abertas
-																																																																																						        </a>
-																																																																																										      </div>
-																																																																																													    </header>
+<Layout title={`${churchName} | Bem-vindo`}>
+  
+  <!-- CABEÇALHO / NAVEGAÇÃO -->
+  <header class="bg-igreja-preto text-igreja-branco sticky top-0 z-50 border-b border-igreja-terra/40 shadow-lg">
+    <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between">
+      <!-- LOGO E NOME DA IGREJA -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="bg-igreja-terra p-2 rounded-xl group-hover:bg-igreja-laranja transition duration-300">
+          <img src={logoUrl.src} alt="Logo" class="h-8 w-8 filter invert" />
+        </div>
+        <span class="font-black text-xl tracking-wide text-igreja-dourado group-hover:text-igreja-laranja transition duration-300">
+          {churchName}
+        </span>
+      </a>
 
-																																																																																															    <!-- 2. SECÇÃO HERO (DESTAQUE PRINCIPAL) -->
-																																																																																																	    <section class="relative bg-gradient-to-br from-blue-900 via-indigo-900 to-slate-900 text-white py-20 px-4 text-center md:py-32">
-																																																																																																			      <div class="max-w-3xl mx-auto">
-																																																																																																						        <span class="bg-blue-500/20 text-blue-300 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-blue-500/30">
-																																																																																																										          Lugar de Comunhão
-																																																																																																															        </span>
-																																																																																																																			        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mt-6 leading-tight">
-																																																																																																																							          Uma igreja de braços abertos para si
-																																																																																																																												        </h1>
-																																																																																																																																        <p class="text-lg md:text-xl text-slate-300 mt-6 max-w-xl mx-auto leading-relaxed">
-																																																																																																																																				          Acompanhe a nossa agenda de cultos, fique por dentro dos próximos retiros e participe na nossa comunidade.
-																																																																																																																																									        </p>
-																																																																																																																																													        <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-																																																																																																																																																	          <a href="#agenda" class="bg-white text-slate-900 hover:bg-slate-100 font-medium px-8 py-3 rounded-lg shadow transition text-center">
-																																																																																																																																																						            Ver Horários de Culto
-																																																																																																																																																												          </a>
-																																																																																																																																																																	          <a href="#eventos" class="bg-blue-600 hover:bg-blue-500 font-medium px-8 py-3 rounded-lg shadow transition text-center">
-																																																																																																																																																																						            Próximos Eventos
-																																																																																																																																																																												          </a>
-																																																																																																																																																																																	        </div>
-																																																																																																																																																																																					      </div>
-																																																																																																																																																																																								    </section>
+      <!-- MENU DE NAVEGAÇÃO -->
+      <nav class="hidden md:flex items-center gap-8 font-medium text-igreja-branco/80 text-sm">
+        <a href="#" class="hover:text-igreja-dourado transition">Início</a>
+        <a href="#agenda" class="hover:text-igreja-dourado transition">Cultos</a>
+        <a href="#eventos" class="hover:text-igreja-dourado transition">Eventos</a>
+        <a href="/admin" class="bg-igreja-terra/40 text-igreja-dourado border border-igreja-dourado/30 px-4 py-2 rounded-lg hover:bg-igreja-terra transition">
+          Painel CMS
+        </a>
+      </nav>
 
-																																																																																																																																																																																										    <!-- 3. AGENDA DE CULTOS (SEMANAL) -->
-																																																																																																																																																																																												    <section id="agenda" class="max-w-6xl mx-auto px-4 py-16 scroll-mt-16">
-																																																																																																																																																																																														      <div class="text-center max-w-xl mx-auto mb-12">
-																																																																																																																																																																																																	        <h2 class="text-3xl font-bold tracking-tight text-gray-900">A Nossa Agenda Semanal</h2>
-																																																																																																																																																																																																					        <p class="text-gray-500 mt-2">Junte-se a nós presencialmente ou assista online através das nossas redes sociais.</p>
-																																																																																																																																																																																																									      </div>
+      <!-- BOTÃO DE AÇÃO -->
+      <a href="#eventos" class="bg-igreja-laranja hover:bg-igreja-dourado text-igreja-branco font-bold text-xs uppercase tracking-wider px-5 py-3 rounded-full shadow-md transition duration-300">
+        Participar
+      </a>
+    </div>
+  </header>
 
-																																																																																																																																																																																																												      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-																																																																																																																																																																																																															        {cultos.map((culto) => (
-																																																																																																																																																																																																																			          <div class="bg-white border border-gray-100 p-6 rounded-2xl shadow-sm hover:shadow-md transition flex flex-col justify-between">
-																																																																																																																																																																																																																								            <div>
-																																																																																																																																																																																																																														              <div class="flex items-center justify-between">
-																																																																																																																																																																																																																																					                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">
-																																																																																																																																																																																																																																													                  {culto.dia}
-																																																																																																																																																																																																																																																						                </span>
-																																																																																																																																																																																																																																																														                <span class="text-sm font-semibold text-gray-400">🕒 {culto.horario}</span>
-																																																																																																																																																																																																																																																																						              </div>
-																																																																																																																																																																																																																																																																													              <h3 class="text-xl font-bold text-gray-900 mt-4">{culto.nome}</h3>
-																																																																																																																																																																																																																																																																																				            </div>
-																																																																																																																																																																																																																																																																																										            <a href={culto.link} class="mt-6 inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-700 group">
-																																																																																																																																																																																																																																																																																																              Como chegar ou assistir
-																																																																																																																																																																																																																																																																																																							              <span class="transform translate-x-0 group-hover:translate-x-1 transition-transform ml-1">→</span>
-																																																																																																																																																																																																																																																																																																														            </a>
-																																																																																																																																																																																																																																																																																																																				          </div>
-																																																																																																																																																																																																																																																																																																																									        ))}
-																																																																																																																																																																																																																																																																																																																													      </div>
-																																																																																																																																																																																																																																																																																																																																    </section>
+  <!-- HERO SECTION -->
+  <section class="bg-igreja-terra text-igreja-branco py-24 px-4 text-center relative border-b border-igreja-dourado/30">
+    <div class="max-w-3xl mx-auto space-y-6">
+      
+      <!-- LOGO EM DESTAQUE NO HERO -->
+      <div class="inline-flex items-center gap-2 bg-igreja-preto/30 border border-igreja-dourado/40 text-igreja-dourado px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest">
+        <img src={logoUrl.src} alt="Icone" class="h-4 w-4 filter invert opacity-90" />
+        <span>Lugar de Fé & Comunhão</span>
+      </div>
 
-																																																																																																																																																																																																																																																																																																																																		    <!-- 4. PRÓXIMOS EVENTOS E RETIROS (PRONTOS PARA A ETAPA DE INSCRIÇÕES) -->
-																																																																																																																																																																																																																																																																																																																																				    <section id="eventos" class="bg-slate-100 py-16 scroll-mt-16">
-																																																																																																																																																																																																																																																																																																																																						      <div class="max-w-6xl mx-auto px-4">
-																																																																																																																																																																																																																																																																																																																																									        <div class="text-center max-w-xl mx-auto mb-12">
-																																																																																																																																																																																																																																																																																																																																													          <h2 class="text-3xl font-bold tracking-tight text-gray-900">Eventos, Retiros e Conferências</h2>
-																																																																																																																																																																																																																																																																																																																																																		          <p class="text-gray-500 mt-2">Participe nas nossas atividades especiais. Inscrições simplificadas diretamente aqui.</p>
-																																																																																																																																																																																																																																																																																																																																																							        </div>
+      <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-tight text-igreja-branco">
+        Uma igreja de braços abertos para <span class="text-igreja-dourado">você</span>
+      </h1>
+      
+      <p class="text-lg text-igreja-branco/90 max-w-2xl mx-auto leading-relaxed">
+        Venha fazer parte da nossa família. Confira nossos horários de cultos semanais e os próximos eventos programados.
+      </p>
 
-																																																																																																																																																																																																																																																																																																																																																											        <div class="grid gap-8 md:grid-cols-2 max-w-4xl mx-auto">
-																																																																																																																																																																																																																																																																																																																																																															          {eventos.map((evento) => (
-																																																																																																																																																																																																																																																																																																																																																																				            <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition border border-gray-200/60 flex flex-col">
-																																																																																																																																																																																																																																																																																																																																																																										              <div class="relative h-48 bg-gray-200">
-																																																																																																																																																																																																																																																																																																																																																																																	                <img src={evento.imagem} alt={evento.titulo} class="w-full h-full object-cover" />
-																																																																																																																																																																																																																																																																																																																																																																																									                <span class="absolute top-4 left-4 bg-white/95 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
-																																																																																																																																																																																																																																																																																																																																																																																																	                  {evento.tag}
-																																																																																																																																																																																																																																																																																																																																																																																																										                </span>
-																																																																																																																																																																																																																																																																																																																																																																																																																		              </div>
-																																																																																																																																																																																																																																																																																																																																																																																																																									              <div class="p-6 flex-1 flex flex-col justify-between">
-																																																																																																																																																																																																																																																																																																																																																																																																																																                <div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																								                  <div class="flex items-center text-sm font-medium text-blue-600 gap-2">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																	                    <span>📅 {evento.data}</span>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																											                    <span class="text-gray-300">•</span>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																					                    <span class="text-gray-500">📍 {evento.local}</span>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																															                  </div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								                  <h3 class="text-2xl font-bold text-gray-900 mt-3 tracking-tight">{evento.titulo}</h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	                  <p class="text-gray-600 mt-2 text-sm leading-relaxed">{evento.descricao}</p>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										                </div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		                <!-- O botão já está preparado estruturalmente para a Etapa 2 de pagamentos -->
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										                <button class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-xl text-sm transition shadow-sm">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		                  Saber Mais & Inscrever
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											                </button>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			              </div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										            </div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																          ))}
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					        </div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									      </div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												    </section>
+      <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#agenda" class="bg-igreja-laranja hover:bg-igreja-dourado text-igreja-branco font-bold px-8 py-4 rounded-xl shadow-lg transition duration-300 text-sm">
+          Ver Horários dos Cultos
+        </a>
+        <a href="#eventos" class="bg-igreja-preto hover:bg-igreja-preto/80 text-igreja-branco border border-igreja-dourado/40 font-bold px-8 py-4 rounded-xl transition duration-300 text-sm">
+          Próximos Eventos
+        </a>
+      </div>
+    </div>
+  </section>
 
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														    <!-- 5. RODAPÉ -->
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																    <footer class="bg-white border-t border-gray-100 py-8 text-center text-sm text-gray-400">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		      <p>&copy; 2026 {churchName}. Desenvolvido em Astro & Tailwind.</p>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					    </footer>
+  <!-- AGENDA DE CULTOS -->
+  <section id="agenda" class="bg-igreja-branco max-w-6xl mx-auto px-4 py-20 scroll-mt-12">
+    <div class="text-center max-w-xl mx-auto mb-14">
+      <span class="text-igreja-laranja text-xs font-extrabold uppercase tracking-widest bg-igreja-laranja/10 px-3 py-1.5 rounded-full border border-igreja-laranja/20">
+        Programação Semanal
+      </span>
+      <h2 class="text-3xl font-extrabold text-igreja-preto tracking-tight mt-3">Nossos Cultos</h2>
+      <p class="text-igreja-preto/70 mt-2">Participe conosco presencialmente nos seguintes horários.</p>
+    </div>
 
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							  </body>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								</html>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {cultos.map((culto) => (
+        <div class="bg-igreja-branco border-2 border-igreja-terra/20 p-6 rounded-2xl shadow-sm hover:shadow-xl hover:border-igreja-dourado transition duration-300 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-extrabold uppercase tracking-wider text-igreja-branco bg-igreja-terra px-3 py-1 rounded-md">
+                {culto.dia}
+              </span>
+              <span class="text-xs font-bold text-igreja-laranja">🕒 {culto.horario}</span>
+            </div>
+            <h3 class="text-xl font-bold text-igreja-preto mt-5">{culto.nome}</h3>
+            <p class="text-igreja-preto/70 text-xs mt-2 leading-relaxed">{culto.descricao}</p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-igreja-terra/10 flex items-center justify-between text-xs font-bold text-igreja-laranja">
+            <span>Presencial</span>
+            <span>&rarr;</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- EVENTOS E RETIROS -->
+  <section id="eventos" class="bg-igreja-preto text-igreja-branco py-20 border-t border-igreja-terra/40 scroll-mt-12">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center max-w-xl mx-auto mb-14">
+        <span class="text-igreja-dourado text-xs font-bold uppercase tracking-widest bg-igreja-dourado/10 px-3 py-1.5 rounded-full border border-igreja-dourado/30">
+          Calendário Especial
+        </span>
+        <h2 class="text-3xl font-extrabold text-igreja-branco tracking-tight mt-3">Eventos e Retiros</h2>
+        <p class="text-igreja-branco/70 mt-2">Fique por dentro das conferências e passeios da igreja.</p>
+      </div>
+
+      <div class="grid gap-8 md:grid-cols-2 max-w-4xl mx-auto">
+        {eventos.map((evento) => (
+          <div class="bg-igreja-branco text-igreja-preto rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 border border-igreja-dourado/30 flex flex-col">
+            <div class="relative h-56 bg-igreja-terra">
+              <img
+                src={evento.imagem}
+                alt={evento.titulo}
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <span class="absolute top-4 left-4 bg-igreja-preto text-igreja-dourado text-xs font-bold px-3 py-1 rounded-full shadow-md border border-igreja-dourado/40">
+                {evento.tag}
+              </span>
+            </div>
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center text-xs font-bold text-igreja-laranja gap-2">
+                  <span>📅 {evento.data}</span>
+                  <span class="text-igreja-preto/30">•</span>
+                  <span class="text-igreja-preto/60">📍 {evento.local}</span>
+                </div>
+                <h3 class="text-2xl font-bold text-igreja-preto mt-3 tracking-tight">{evento.titulo}</h3>
+                <p class="text-igreja-preto/70 mt-2 text-sm leading-relaxed">{evento.descricao}</p>
+              </div>
+              <button class="w-full mt-6 bg-igreja-laranja hover:bg-igreja-dourado text-igreja-branco font-bold py-3 rounded-xl text-sm transition duration-300 shadow-md">
+                Garantir Inscrição
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- RODAPÉ COM LOGO DA IGREJA -->
+  <footer class="bg-igreja-preto text-igreja-branco/60 py-12 border-t border-igreja-terra/30">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <img src={logoUrl.src} alt="Logo Rodapé" class="h-6 w-6 filter invert opacity-80" />
+        <span class="font-bold text-igreja-dourado tracking-wide">{churchName}</span>
+      </div>
+      <p class="text-xs text-igreja-branco/50">&copy; 2026 {churchName}. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+</Layout>

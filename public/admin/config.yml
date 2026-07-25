@@ -1,22 +1,48 @@
 backend:
-  name: github
-  repo: GabrielSBrito17/christian-family-astro # Altere para seu usuário/repo no GitHub
+  name: git-gateway
   branch: main
-  base_url: https://decap-cms-oauth.vercel.app # Proxy gratuito para autenticação no GitHub
+  repo: GabrielSBrito17/christian-family-astro # Altere para seu usuário/repo no GitHub
+  repository branch: main
+  base_url: https://netlify-cms.adrianub.vercel.app # Proxy gratuito para autenticação no GitHub
 
 media_folder: "public/images/uploads" # Pasta onde imagens enviadas serão salvas
 public_folder: "/images/uploads"
 
+# Coleções de Conteúdo para a Igreja
 collections:
-  - name: "eventos"
-    label: "Eventos e Avisos"
-    folder: "src/content/eventos" # Onde os arquivos Markdown serão criados
+  # 1. Comunicados e Avisos Gerais
+  - name: "comunicados"
+    label: "Comunicados e Avisos"
+    folder: "src/content/comunicados"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "Título", name: "titulo", widget: "string" }
+      - { label: "Data de Publicação", name: "data", widget: "datetime" }
+      - { label: "Aviso Urgente?", name: "urgente", widget: "boolean", default: false }
+      - { label: "Mensagem", name: "body", widget: "markdown" }
+
+  # 2. Agenda de Cultos Semanais (Horários e Dias)
+  - name: "cultos"
+    label: "Horários dos Cultos"
+    folder: "src/content/cultos"
+    create: true
+    fields:
+      - { label: "Nome do Culto", name: "titulo", widget: "string", example: "Culto de Celebração" }
+      - { label: "Dia da Semana", name: "dia", widget: "select", options: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"] }
+      - { label: "Horário", name: "horario", widget: "string", example: "19:30" }
+      - { label: "Descrição/Observação", name: "descricao", widget: "string", required: false }
+
+  # 3. Calendário de Eventos Especiais (Retiros, Churrasco, Monte, etc.)
+  - name: "eventos"
+    label: "Eventos e Calendário"
+    folder: "src/content/eventos"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Nome do Evento", name: "titulo", widget: "string", example: "Retiro de Jovens" }
+      - { label: "Categoria", name: "categoria", widget: "select", options: ["Retiro", "Acampamento", "Oração no Monte", "Confraternização", "Outros"] }
       - { label: "Data do Evento", name: "data", widget: "datetime" }
-      - { label: "Horário", name: "horario", widget: "string", default: "18:00" }
-      - { label: "Descrição Curta", name: "descricao", widget: "text" }
-      - { label: "Imagem de Capa", name: "imagem", widget: "image", required: false }
-      - { label: "Conteúdo Detalhado", name: "body", widget: "markdown" }
+      - { label: "Local", name: "local", widget: "string" }
+      - { label: "Imagem / Banner", name: "imagem", widget: "image", required: false }
+      - { label: "Detalhes e Programação", name: "body", widget: "markdown" }
