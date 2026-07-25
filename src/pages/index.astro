@@ -1,14 +1,38 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import logoUrl from "../assets/images/logo2.png";
+import logoWatermark from "../assets/images/logo.png";
 
 const churchName = "Igreja Christian Family";
-import logoUrl from "../assets/images/logo2.png";
 
 const cultos = [
-  { nome: "Culto de Celebração", dia: "Domingo", horario: "10:00 e 18h00", descricao: "Louvor, comunhão e palavra transformadora para a família." },
-  { nome: "Culto o Altar Responde", dia: "Sexta-feira", horario: "20h00", descricao: "Noite de oração, busca pelo Espírito Santo e clamor." },
-  { nome: "Reunião de Oração", dia: "Terça-feira", horario: "20h00", descricao: "Intercessão pelas famílias, igreja e pedidos de oração." },
-  { nome: "Encontro de Jovens", dia: "Sábado", horario: "19h30", descricao: "Comunhão, louvor jovem e mensagens práticas." },
+  { 
+    nome: "Domingo de Celebração", 
+    dia: "Domingo", 
+    horarios: [
+      { rotulo: "Pequeno Almoço", hora: "09:00 - 09:45" },
+      { rotulo: "Culto Principal", hora: "10:00 & 18:00" }
+    ],
+    descricao: "Louvor, comunhão, pequeno almoço em família e palavra transformadora." 
+  },
+  { 
+    nome: "Culto o Altar Responde", 
+    dia: "Sexta-feira", 
+    horarios: [{ rotulo: "Culto", hora: "20:00" }],
+    descricao: "Noite de oração, busca pelo Espírito Santo e clamor." 
+  },
+  { 
+    nome: "Terça da Benção", 
+    dia: "Terça-feira", 
+    horarios: [{ rotulo: "Oração", hora: "20:00" }],
+    descricao: "Intercessão pelas famílias, igreja e pedidos de oração." 
+  },
+  { 
+    nome: "Encontro de Jovens", 
+    dia: "Sábado", 
+    horarios: [{ rotulo: "Jovens", hora: "19:30" }],
+    descricao: "Comunhão, louvor jovem e mensagens práticas." 
+  },
 ];
 
 const eventos = [
@@ -63,21 +87,30 @@ const eventos = [
     </div>
   </header>
 
-  <!-- HERO SECTION -->
-  <section class="bg-igreja-terra text-igreja-branco py-24 px-4 text-center relative border-b border-igreja-dourado/30">
-    <div class="max-w-3xl mx-auto space-y-6">
-      
-      <!-- LOGO EM DESTAQUE NO HERO -->
-      <div class="inline-flex items-center gap-2 bg-igreja-preto/30 border border-igreja-dourado/40 text-igreja-dourado px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest">
-        <img src={logoUrl.src} alt="Icone" class="h-4 w-4 filter invert opacity-90" />
+  <!-- HERO SECTION COM MARCA D'ÁGUA RESPONSIVA -->
+  <section class="bg-igreja-preto text-igreja-branco py-20 sm:py-28 px-4 text-center relative overflow-hidden border-b border-igreja-terra/40">
+    
+    <!-- MARCA D'ÁGUA (PERFEITAMENTE CENTRALIZADA E RESPONSIVA) -->
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0 p-6">
+      <img 
+        src={logoWatermark.src} 
+        alt="" 
+        aria-hidden="true" 
+        class="w-full max-w-[280px] sm:max-w-[420px] md:max-w-[550px] lg:max-w-[650px] h-auto object-contain mix-blend-screen opacity-10 filter blur-[0.5px]" 
+      />
+    </div>
+
+    <!-- CONTEÚDO PRINCIPAL DA HERO (FICA ACIMA DA MARCA D'ÁGUA) -->
+    <div class="max-w-3xl mx-auto space-y-6 relative z-10">
+      <div class="inline-flex items-center gap-2 bg-igreja-preto/60 border border-igreja-dourado/40 text-igreja-dourado px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest backdrop-blur-sm">
         <span>Lugar de Fé & Comunhão</span>
       </div>
 
-      <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-tight text-igreja-branco">
+      <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-tight text-igreja-branco">
         Uma igreja de braços abertos para <span class="text-igreja-dourado">você</span>
       </h1>
       
-      <p class="text-lg text-igreja-branco/90 max-w-2xl mx-auto leading-relaxed">
+      <p class="text-base sm:text-lg text-igreja-branco/90 max-w-2xl mx-auto leading-relaxed">
         Venha fazer parte da nossa família. Confira nossos horários de cultos semanais e os próximos eventos programados.
       </p>
 
@@ -85,7 +118,7 @@ const eventos = [
         <a href="#agenda" class="bg-igreja-laranja hover:bg-igreja-dourado text-igreja-branco font-bold px-8 py-4 rounded-xl shadow-lg transition duration-300 text-sm">
           Ver Horários dos Cultos
         </a>
-        <a href="#eventos" class="bg-igreja-preto hover:bg-igreja-preto/80 text-igreja-branco border border-igreja-dourado/40 font-bold px-8 py-4 rounded-xl transition duration-300 text-sm">
+        <a href="#eventos" class="bg-igreja-preto/80 hover:bg-igreja-preto text-igreja-branco border border-igreja-dourado/40 font-bold px-8 py-4 rounded-xl transition duration-300 text-sm">
           Próximos Eventos
         </a>
       </div>
@@ -106,15 +139,31 @@ const eventos = [
       {cultos.map((culto) => (
         <div class="bg-igreja-branco border-2 border-igreja-terra/20 p-6 rounded-2xl shadow-sm hover:shadow-xl hover:border-igreja-dourado transition duration-300 flex flex-col justify-between">
           <div>
-            <div class="flex items-center justify-between">
+            <!-- Header do Card: Dia da Semana -->
+            <div class="flex items-center justify-between mb-4">
               <span class="text-xs font-extrabold uppercase tracking-wider text-igreja-branco bg-igreja-terra px-3 py-1 rounded-md">
                 {culto.dia}
               </span>
-              <span class="text-xs font-bold text-igreja-laranja">🕒 {culto.horario}</span>
             </div>
-            <h3 class="text-xl font-bold text-igreja-preto mt-5">{culto.nome}</h3>
+
+            <!-- Título do Evento -->
+            <h3 class="text-xl font-bold text-igreja-preto">{culto.nome}</h3>
+            
+            <!-- Descrição -->
             <p class="text-igreja-preto/70 text-xs mt-2 leading-relaxed">{culto.descricao}</p>
+
+            <!-- Bloco de Horários Detalhados -->
+            <div class="mt-4 pt-4 border-t border-igreja-terra/10 space-y-2">
+              {culto.horarios.map((h) => (
+                <div class="flex items-center justify-between text-xs bg-igreja-terra/5 p-2 rounded-lg border border-igreja-terra/10">
+                  <span class="font-bold text-igreja-preto/80">{h.rotulo}</span>
+                  <span class="font-bold text-igreja-laranja">🕒 {h.hora}</span>
+                </div>
+              ))}
+            </div>
           </div>
+
+          <!-- Rodapé do Card -->
           <div class="mt-6 pt-4 border-t border-igreja-terra/10 flex items-center justify-between text-xs font-bold text-igreja-laranja">
             <span>Presencial</span>
             <span>&rarr;</span>
