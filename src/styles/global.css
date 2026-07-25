@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme{
+    /* Cores Customizadas da Igreja */
+    --color-igreja-preto: #0f0f0f;
+    --color-igreja-laranja: #ea580c;
+    --color-igreja-terra: #78350f;
+    --color-igreja-dourado: #d97706;
+    --color-igreja-branco: #ffffff;
+}
