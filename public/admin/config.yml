@@ -1,9 +1,6 @@
 backend:
   name: git-gateway
   branch: main
-  repo: GabrielSBrito17/christian-family-astro # Altere para seu usuário/repo no GitHub
-  repository branch: main
-  base_url: https://netlify-cms.adrianub.vercel.app # Proxy gratuito para autenticação no GitHub
 
 media_folder: "public/images/uploads" # Pasta onde imagens enviadas serão salvas
 public_folder: "/images/uploads"
@@ -27,11 +24,17 @@ collections:
     label: "Horários dos Cultos"
     folder: "src/content/cultos"
     create: true
+    identifier_field: "nome"
     fields:
-      - { label: "Nome do Culto", name: "titulo", widget: "string", example: "Culto de Celebração" }
+      - { label: "Nome do Culto", name: "nome", widget: "string", example: "Culto de Celebração" }
       - { label: "Dia da Semana", name: "dia", widget: "select", options: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"] }
-      - { label: "Horário", name: "horario", widget: "string", example: "19:30" }
-      - { label: "Descrição/Observação", name: "descricao", widget: "string", required: false }
+      - { label: "Descrição/Observação", name: "descricao", widget: "text", required: false }
+      - label: "Horários"
+        name: "horarios"
+        widget: "list"
+        fields:
+          - { label: "Rótulo (Ex: Pequeno Almoço, Culto)", name: "rotulo", widget: "string" }
+          - { label: "Hora (Ex: 09:00, 19:30)", name: "hora", widget: "string" }
 
   # 3. Calendário de Eventos Especiais (Retiros, Churrasco, Monte, etc.)
   - name: "eventos"
@@ -41,8 +44,8 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "Nome do Evento", name: "titulo", widget: "string", example: "Retiro de Jovens" }
-      - { label: "Categoria", name: "categoria", widget: "select", options: ["Retiro", "Acampamento", "Oração no Monte", "Confraternização", "Outros"] }
-      - { label: "Data do Evento", name: "data", widget: "datetime" }
-      - { label: "Local", name: "local", widget: "string" }
+      - { label: "Categoria / Tag", name: "tag", widget: "select", options: ["Retiro", "Acampamento", "Oração no Monte", "Confraternização", "Outros", "Conferência"] }
+      - { label: "Data do Evento (Texto)", name: "data", widget: "string", example: "15 a 17 de Outubro" }
+      - { label: "Local", name: "local", widget: "string", example: "Auditório Principal" }
       - { label: "Imagem / Banner", name: "imagem", widget: "image", required: false }
-      - { label: "Detalhes e Programação", name: "body", widget: "markdown" }
+      - { label: "Descrição e Detalhes", name: "descricao", widget: "text" }

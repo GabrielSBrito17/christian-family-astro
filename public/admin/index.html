@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-PT">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Painel Administrativo - Igreja</title>
 
-    <!-- Aponta diretamente para o arquivo de configuração YAML -->
-    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" rel="stylesheet" />
+    <!-- O caminho correto não inclui "/public/" -->
+    <link href="config.yml" type="text/yaml" rel="cms-config-url" />
 
     <!-- Widget de Login Netlify Identity -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
@@ -15,6 +15,7 @@
     <!-- Script do CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
+    <!-- Redirecionamento de Login -->
     <script>
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
@@ -27,10 +28,11 @@
       }
     </script>
 
+    <!-- Configuração para testes Locais (WebContainer) -->
     <script>
       if (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname.includes("webcontainer")) {
         window.netlifyIdentity.init({
-          APIUrl: "https://https://christian-family.netlify.app/.netlify/identity"
+          APIUrl: "https://christian-family.netlify.app/.netlify/identity"
         });
       }
     </script>
