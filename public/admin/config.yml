@@ -1,13 +1,15 @@
 backend:
-  name: git-gateway
-  branch: main
+  name: github
+  repo: GabrielSBrito17/christian-family-astro
+  branch: develop # Altere para 'main' se quiser que o CMS salve na branch principal
+  base_url: https://netlify-cms.adrianub.vercel.app # Proxy para autenticação no Vercel
 
-media_folder: "public/images/uploads" # Pasta onde imagens enviadas serão salvas
+media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
+site_url: "https://christian-family-git-develop-gabrielsbrito17s-projects.vercel.app"
 
 # Coleções de Conteúdo para a Igreja
 collections:
-  # 1. Comunicados e Avisos Gerais
   - name: "comunicados"
     label: "Comunicados e Avisos"
     folder: "src/content/comunicados"
@@ -19,7 +21,6 @@ collections:
       - { label: "Aviso Urgente?", name: "urgente", widget: "boolean", default: false }
       - { label: "Mensagem", name: "body", widget: "markdown" }
 
-  # 2. Agenda de Cultos Semanais (Horários e Dias)
   - name: "cultos"
     label: "Horários dos Cultos"
     folder: "src/content/cultos"
@@ -33,10 +34,9 @@ collections:
         name: "horarios"
         widget: "list"
         fields:
-          - { label: "Rótulo (Ex: Pequeno Almoço, Culto)", name: "rotulo", widget: "string" }
-          - { label: "Hora (Ex: 09:00, 19:30)", name: "hora", widget: "string" }
+          - { label: "Rótulo (Ex: Pequeno Almoço)", name: "rotulo", widget: "string" }
+          - { label: "Hora (Ex: 09:00)", name: "hora", widget: "string" }
 
-  # 3. Calendário de Eventos Especiais (Retiros, Churrasco, Monte, etc.)
   - name: "eventos"
     label: "Eventos e Calendário"
     folder: "src/content/eventos"
