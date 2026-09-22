@@ -4,37 +4,31 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Painel Administrativo - Igreja</title>
-
-    <!-- O caminho correto não inclui "/public/" -->
+    
     <link href="config.yml" type="text/yaml" rel="cms-config-url" />
 
-    <!-- Widget de Login Netlify Identity -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  </head>
-  <body>
-    <!-- Script do CMS -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
-    <!-- Redirecionamento de Login -->
     <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.reload();
-            });
-          }
-        });
-      }
-    </script>
+      const MEU_SITE_NETLIFY = "https://christian-family.netlify.app";
 
-    <!-- Configuração para testes Locais (WebContainer) -->
-    <script>
       if (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname.includes("webcontainer")) {
         window.netlifyIdentity.init({
-          APIUrl: "https://christian-family.netlify.app/.netlify/identity"
+          APIUrl: MEU_SITE_NETLIFY + "/.netlify/identity"
         });
       }
+
+      // Regra de redirecionamento após o login
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.reload();
+          });
+        }
+      });
     </script>
+  </head>
+  <body>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </body>
 </html>
