@@ -1,14 +1,14 @@
-<html lang="pt-PT">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Painel Administrativo - Igreja</title>
-    
-    <!-- Caminho absoluto corrigido para Vercel não dar erro 404 -->
-    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
-  </head>
-  <body>
-    <!-- Apenas o script do CMS. Sem Netlify Identity! -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel Administrativo - Igreja</title>
+  <!-- Aponta para o seu arquivo config.yml -->
+  <link href="config.yml" type="text/yaml" rel="cms-config-url" />
+</head>
+<body>
+  <!-- Sveltia CMS substitui o Decap CMS -->
+  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+</body>
 </html>
