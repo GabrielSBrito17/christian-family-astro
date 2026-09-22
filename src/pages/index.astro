@@ -1,58 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 import logoUrl from "../assets/images/logo2.png";
 import logoWatermark from "../assets/images/logo.png";
 
 const churchName = "Igreja Christian Family";
 
-const cultos = [
-  { 
-    nome: "Domingo de Celebração", 
-    dia: "Domingo", 
-    horarios: [
-      { rotulo: "Pequeno Almoço", hora: "09:00 - 09:45" },
-      { rotulo: "Culto Principal", hora: "10:00 & 18:00" }
-    ],
-    descricao: "Louvor, comunhão, pequeno almoço em família e palavra transformadora." 
-  },
-  { 
-    nome: "Culto o Altar Responde", 
-    dia: "Sexta-feira", 
-    horarios: [{ rotulo: "Culto", hora: "20:00" }],
-    descricao: "Noite de oração, busca pelo Espírito Santo e clamor." 
-  },
-  { 
-    nome: "Terça da Benção", 
-    dia: "Terça-feira", 
-    horarios: [{ rotulo: "Oração", hora: "20:00" }],
-    descricao: "Intercessão pelas famílias, igreja e pedidos de oração." 
-  },
-  { 
-    nome: "Encontro de Jovens", 
-    dia: "Sábado", 
-    horarios: [{ rotulo: "Jovens", hora: "19:30" }],
-    descricao: "Comunhão, louvor jovem e mensagens práticas." 
-  },
-];
+// 1. Buscando os dados do diretório src/content (Decap CMS)
+const cultosEntries = await getCollection('cultos');
+const cultos = cultosEntries.map(entry => entry.data);
 
-const eventos = [
-  {
-    titulo: "Conferência Global 2026",
-    data: "15 a 17 de Outubro",
-    local: "Auditório Principal",
-    imagem: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80",
-    tag: "Conferência",
-    descricao: "Três dias de imersão, adoração e palavra com convidados especiais. Garanta sua vaga."
-  },
-  {
-    titulo: "Retiro de Jovens: Conectados",
-    data: "20 a 22 de Novembro",
-    local: "Acampamento Quinta do Sol",
-    imagem: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=800&q=80",
-    tag: "Retiro",
-    descricao: "O nosso retiro anual de jovens. Tempo focado em comunhão, dinâmicas e crescimento espiritual."
-  }
-];
+const eventosEntries = await getCollection('eventos');
+const eventos = eventosEntries.map(entry => entry.data);
+
+const comunicadosEntries = await getCollection('comunicados');
+// Ordenando comunicados por data (mais recentes primeiro)
+const comunicados = comunicadosEntries
+  .map(entry => ({ data: entry.data, body: entry.body }))
+  .sort((a, b) => new Date(b.data.data).getTime() - new Date(a.data.data).getTime());
 ---
 
 <Layout title={`${churchName} | Bem-vindo`}>
@@ -60,7 +25,6 @@ const eventos = [
   <!-- CABEÇALHO / NAVEGAÇÃO -->
   <header class="bg-igreja-preto text-igreja-branco sticky top-0 z-50 border-b border-igreja-terra/40 shadow-lg">
     <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between">
-      <!-- LOGO E NOME DA IGREJA -->
       <a href="#" class="flex items-center gap-3 group">
         <div class="bg-igreja-terra p-2 rounded-xl group-hover:bg-igreja-laranja transition duration-300">
           <img src={logoUrl.src} alt="Logo" class="h-8 w-8 filter invert" />
@@ -70,9 +34,9 @@ const eventos = [
         </span>
       </a>
 
-      <!-- MENU DE NAVEGAÇÃO -->
       <nav class="hidden md:flex items-center gap-8 font-medium text-igreja-branco/80 text-sm">
         <a href="#" class="hover:text-igreja-dourado transition">Início</a>
+        <a href="#comunicados" class="hover:text-igreja-dourado transition">Avisos</a>
         <a href="#agenda" class="hover:text-igreja-dourado transition">Cultos</a>
         <a href="#eventos" class="hover:text-igreja-dourado transition">Eventos</a>
         <a href="/admin" class="bg-igreja-terra/40 text-igreja-dourado border border-igreja-dourado/30 px-4 py-2 rounded-lg hover:bg-igreja-terra transition">
@@ -80,7 +44,6 @@ const eventos = [
         </a>
       </nav>
 
-      <!-- BOTÃO DE AÇÃO -->
       <a href="#eventos" class="bg-igreja-laranja hover:bg-igreja-dourado text-igreja-branco font-bold text-xs uppercase tracking-wider px-5 py-3 rounded-full shadow-md transition duration-300">
         Participar
       </a>
@@ -90,7 +53,6 @@ const eventos = [
   <!-- HERO SECTION COM MARCA D'ÁGUA RESPONSIVA -->
   <section class="bg-igreja-preto text-igreja-branco py-20 sm:py-28 px-4 text-center relative overflow-hidden border-b border-igreja-terra/40">
     
-    <!-- MARCA D'ÁGUA (PERFEITAMENTE CENTRALIZADA E RESPONSIVA) -->
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0 p-6">
       <img 
         src={logoWatermark.src} 
@@ -100,7 +62,6 @@ const eventos = [
       />
     </div>
 
-    <!-- CONTEÚDO PRINCIPAL DA HERO (FICA ACIMA DA MARCA D'ÁGUA) -->
     <div class="max-w-3xl mx-auto space-y-6 relative z-10">
       <div class="inline-flex items-center gap-2 bg-igreja-preto/60 border border-igreja-dourado/40 text-igreja-dourado px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest backdrop-blur-sm">
         <span>Lugar de Fé & Comunhão</span>
@@ -125,6 +86,32 @@ const eventos = [
     </div>
   </section>
 
+  <!-- COMUNICADOS E AVISOS DA IGREJA -->
+  {comunicados.length > 0 && (
+    <section id="comunicados" class="bg-igreja-terra/5 py-12 border-b border-igreja-terra/20 scroll-mt-12">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex items-center gap-3 mb-8">
+          <span class="bg-igreja-laranja text-igreja-branco px-3 py-1 rounded-md text-xs font-bold uppercase tracking-widest">Mural</span>
+          <h2 class="text-2xl font-bold text-igreja-preto tracking-tight">Avisos Importantes</h2>
+        </div>
+        
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {comunicados.map((item) => (
+            <div class={`p-5 rounded-xl border-l-4 shadow-sm bg-igreja-branco ${item.data.urgente ? 'border-igreja-laranja' : 'border-igreja-dourado'}`}>
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-bold text-igreja-preto text-lg">{item.data.titulo}</h3>
+                {item.data.urgente && (
+                  <span class="text-[10px] font-bold bg-igreja-laranja/10 text-igreja-laranja px-2 py-1 rounded uppercase">Urgente</span>
+                )}
+              </div>
+              <p class="text-sm text-igreja-preto/70 mt-2 line-clamp-3">{item.body || item.data.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
   <!-- AGENDA DE CULTOS -->
   <section id="agenda" class="bg-igreja-branco max-w-6xl mx-auto px-4 py-20 scroll-mt-12">
     <div class="text-center max-w-xl mx-auto mb-14">
@@ -139,22 +126,17 @@ const eventos = [
       {cultos.map((culto) => (
         <div class="bg-igreja-branco border-2 border-igreja-terra/20 p-6 rounded-2xl shadow-sm hover:shadow-xl hover:border-igreja-dourado transition duration-300 flex flex-col justify-between">
           <div>
-            <!-- Header do Card: Dia da Semana -->
             <div class="flex items-center justify-between mb-4">
               <span class="text-xs font-extrabold uppercase tracking-wider text-igreja-branco bg-igreja-terra px-3 py-1 rounded-md">
                 {culto.dia}
               </span>
             </div>
 
-            <!-- Título do Evento -->
             <h3 class="text-xl font-bold text-igreja-preto">{culto.nome}</h3>
-            
-            <!-- Descrição -->
             <p class="text-igreja-preto/70 text-xs mt-2 leading-relaxed">{culto.descricao}</p>
 
-            <!-- Bloco de Horários Detalhados -->
             <div class="mt-4 pt-4 border-t border-igreja-terra/10 space-y-2">
-              {culto.horarios.map((h) => (
+              {culto.horarios?.map((h: any) => (
                 <div class="flex items-center justify-between text-xs bg-igreja-terra/5 p-2 rounded-lg border border-igreja-terra/10">
                   <span class="font-bold text-igreja-preto/80">{h.rotulo}</span>
                   <span class="font-bold text-igreja-laranja">🕒 {h.hora}</span>
@@ -163,7 +145,6 @@ const eventos = [
             </div>
           </div>
 
-          <!-- Rodapé do Card -->
           <div class="mt-6 pt-4 border-t border-igreja-terra/10 flex items-center justify-between text-xs font-bold text-igreja-laranja">
             <span>Presencial</span>
             <span>&rarr;</span>
