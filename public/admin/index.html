@@ -26,5 +26,13 @@
         });
       }
     </script>
+
+    <script>
+      if (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname.includes("webcontainer")) {
+        window.netlifyIdentity.init({
+          APIUrl: "https://https://christian-family.netlify.app/.netlify/identity"
+        });
+      }
+    </script>
   </body>
 </html>
